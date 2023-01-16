@@ -1,9 +1,9 @@
 # nlmixr2_on_AWS
-In this README file we will describe how to install R, RStudio server and the rxode2/nlmixr2 packages on a ubuntu server hosted on AWS.
+In this README file we will describe how to install R, RStudio server and the `tidyverse` and `nlmixr2` packages on a Ubuntu server hosted on AWS.
 
-## Create an AWS account and set up the ubuntu server instance
+## Create an AWS account and set up the Ubuntu server instance
 
-The first step is to create an AWS account. This can easily be done following [these](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/?nc1=h_ls) instructions.
+The first step is to create an AWS account. This can be easily done following [these instructions](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/?nc1=h_ls).
 
 In this guideline, RStudio server will be installed on an Ubuntu server hosted on an AWS EC2 instance. Instruction for setting up a Linux AWS EC2 instance can be found [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html).
 
@@ -15,15 +15,15 @@ Briefly,
 2. Press `Launch an instance`.
 3. In `Name and Tags` tab write the instance name.
 4. In `Application and OS Images (Amazon Machine Image, AMI)`, `Quick Start` tab, select the default Ubuntu AMI (on 16/01/2023 we selected *Ubuntu Server 22.04 LTS (HVM), SSD Volume Type*). Leave the other options as default.
-5. In the `Instance type` tab, we selected the `t2.large instance`. We found that the free tier eligible t2.micro instance was "too slow" for our purposes.
-6. In the `Key pair` tab, you can select a key that you have already created in the past. If you don't have a key pair, you can create a new one by pressing `Create new key pair`. A new tab will then open. We selected RSA as Key pair type and `.ppk` as private key file format (this because for connecting through SSH we used PuTTY). Press `Create key pair` and then the key will be downloaded. Store it safely! We will need it later.
-7. I network settings, tick `Allow SSH traffic from` `Anywhere 0.0.0.0/0`, `Allow HTTPS traffic from the internet` and `Allow HTTP traffic from the internet`.
+5. In the `Instance type` tab, we selected the `t2.large` instance. We found that the free tier eligible `t2.micro` instance was "too slow" for our purposes.
+6. In the `Key pair` tab, you can select a key that you have already created. If you don't have a key pair, you can create a new one by pressing `Create new key pair`. A new tab will then open. We selected RSA as Key pair type and `.ppk` as private key file format (this because for connecting through SSH we used PuTTY). Press `Create key pair` and then the key will be downloaded. Store it safely! We will need it later.
+7. In network settings, tick `Allow SSH traffic from` `Anywhere 0.0.0.0/0`, `Allow HTTPS traffic from the internet` and `Allow HTTP traffic from the internet`.
   >**Note**  
-  By default, RStudio server listens on port `8787`. Later on in this guideline, we will allow RStudio server to listen also on port `80`, which is the HTTP default port on AWS (which is already selected by ticking `Allow HTTP traffic from the internet` in point 7). If we want to access the RStudio server on port `8787` as well, we should define an additional security rule. In network settings, click edit and then `add security group rule`. Select `Custom TCP`, in `Port range` write `8787` and in source select `0.0.0.0/0`.
+  By default, RStudio server listens on port `8787`. Later on in this guideline, we will allow RStudio server to listen also on port `80`, which is the HTTP default port on AWS (which is already available by ticking `Allow HTTP traffic from the internet` in point 7). **Optional**: if we want to access the RStudio server on port `8787` as well, we should define an additional security rule. In network settings, click edit and then `add security group rule`. Select `Custom TCP`, in `Port range` write `8787` and in source select `0.0.0.0/0`.
 8. In `Configure storage` we selected 30 GiB of `gp2 General purpose SSD root volume`.
 9. Press `Launch instance` and then `View all instances`.
 
-Now, in the list of all your instances you should find the newly created one in the "Running" state.
+Now, in the list of all your instances you should find the newly created one in the Running state.
 
 
 ## Install R and RStudio
@@ -136,6 +136,8 @@ sudo apt-get install libxml2-dev
 sudo apt-get install libmpfr-dev
 sudo apt-get install libgmp-dev
 sudo apt-get install libboost-all-dev
+sudo apt install liblapack-dev
+sudo apt install libopenblas-dev
 ```
 
 We found the previous libraries necessary for installing nlmixr2.  
