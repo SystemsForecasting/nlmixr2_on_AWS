@@ -79,7 +79,7 @@ R.Version()
 quit()
 ```
 
-On 16/01/2023 R version should be R 4.2.2
+On 16/01/2023 R version should be R 4.2.2.
 
 ### Install RStudio Server
 
@@ -138,12 +138,19 @@ sudo apt-get install libgmp-dev
 sudo apt-get install libboost-all-dev
 ```
 
-We found the previous libraries necessary for installing nlmixr2.
-Now, let's install `tidyverse` and `nlmixr2`! You can do it by running R through SSH or by accessing RStudio.
+We found the previous libraries necessary for installing nlmixr2.  
+
+Now, let's install `tidyverse`. You can do it both by opening R through SSH or RStudio server.
 ```
-> install.packages("tidyverse")
-> install.packages("rxode2", dependencies=T)
-> install.packages("nlmixr2", dependencies=T)
+install.packages("tidyverse")
+```
+Let's install `rxode2`.
+```
+install.packages("rxode2")
+```
+Finally we shall install `nlmixr2`.
+```
+install.packages("nlmixr2", dependencies=T)
 ```
 If you have installed R versions prior to 4.2, please refer to [this page](https://github.com/nlmixr2/nlmixr2/) for nlmixr2 installation. 
 
