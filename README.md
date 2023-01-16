@@ -1,5 +1,6 @@
 # nlmixr2_on_AWS
-In this README file we will describe how to install R, RStudio server and the `tidyverse` and `nlmixr2` packages on a Ubuntu server hosted on AWS.
+In this README file we will describe how to install R, RStudio server and the `tidyverse` and `nlmixr2` packages on a Ubuntu server hosted on AWS.  
+Feel free to provide feedback, suggestions etc.
 
 ## Create an AWS account and set up the Ubuntu server instance
 
@@ -29,27 +30,28 @@ Now, in the list of all your instances you should find the newly created one in 
 ## Install R and RStudio
 
 Guidelines for installing R and RStudio server on a Ubuntu 22 server can be found [here](https://posit.co/download/rstudio-server/).
-For installing R and RStudio we need to access the instance through SSH. For this, we will using PuTTY. You can freely download PuTTY from [here](https://www.putty.org/).
-To access the instance throgh SSH:
+For installing R and RStudio we need to access the instance through SSH. For this, we will use PuTTY. You can freely download PuTTY from [here](https://www.putty.org/).
+To access the instance through SSH:
 
-1. launch PuTTY.
+1. Launch PuTTY.
 2. In the `Session` tab, under `Host Name (or IP address)` write `ubuntu@X`, where `X` is the public IPv4 DNS address that you can find ticking the instance you want to connect to on the `Instances` page of the EC2 dashboard. Leave port to 22.
 3. Open `SSH/Auth` tab and click `Browse` button next to the `Private key file for authentication` field. Search for the key you associated to the previously generated EC2 instance and open it.
 4. Click open and then Accept.
 
 Now, you are in your AWS ubuntu server instance!
-First of all, let's run
-
+First of all, let's run...
 ```
 sudo apt update
 sudo apt upgrade
+```
+Now let's install some compilers.
+```
 sudo apt-get install build-essential
 ```
 
-
 ### Install R 
 
-First, to install the latest version of R on Ubuntu server we should run.
+First, to install the latest version of R on Ubuntu server we shall first update the repositories (otherwise an outdated R version will be installed).
 
 ```
 # install two helper packages we need
@@ -66,12 +68,12 @@ wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sud
 sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
 ```
 
-Then, let's install R
+Then, let's install R.
 ```
 sudo apt install --no-install-recommends r-base
 ```
 
-To check the R version, run
+To check the R version, run...
 
 ```
 R
@@ -79,11 +81,11 @@ R.Version()
 quit()
 ```
 
-On 16/01/2023 R version should be R 4.2.2.
+On 16/01/2023 the R version should be R 4.2.2.
 
 ### Install RStudio Server
 
-For installing RStudio please run the following commands.
+For installing RStudio server we shall run the following code.
 
 ```
 sudo apt-get install gdebi-core
@@ -96,9 +98,9 @@ sudo gdebi rstudio-server-2022.12.0-353-amd64.deb
 ```
 
 Now, RStudio server should be up and running on port `8787`! If you have set the security group for port `8787`, to access RStudio server you just need to copy and paste the Public IPv4 address (you can find by selecting the instance you want to connect to in the Instances page of EC2 dashboard) followed by `:8787`, `http://X.X.X.X:8787`.  
-If you want to open RStudio by directly copy paste the IPv4 address in a new browser tab, we should tell the RStudio server to listen on port `80`.
+If you want to open RStudio by directly copy-pasting the IPv4 address in a new browser tab, we should tell the RStudio server to listen on port `80`.
 
-First we need to add the writing access to the `rserver.conf` file.
+First we need to set the writing access to the `rserver.conf` file.
 ```
 sudo chmod a+rw /etc/rstudio/rserver.conf
 ```
@@ -112,7 +114,7 @@ sudo rstudio-server restart
 ```
 Now, RStudio can be accessed from port `80`.
 
-As it is possible to see, the RStudio requires an username and password. By default, all the ubuntu's user are allowed to access the RStudio server.
+As it is possible to see, the RStudio requires a username and a password. By default, all the Ubuntu's user are allowed to access the RStudio server.
 If you want to setup a new user, you can run the following command through SSH.
 
 ```
@@ -122,9 +124,9 @@ sudo adduser new_username
 ## Install tidyverse and nlmixr2
 
 Before installing tidyverse and nlmixr2 we need to install a few libraries.
-Let's access the instance through SSH and run the following code.
+Let's access the instance through SSH.
 
-First of all, let's install cmake.
+First of all, let's install `make` and `cmake`.
 ```
 sudo apt install make
 sudo snap install cmake --classic
@@ -138,9 +140,11 @@ sudo apt-get install libgmp-dev
 sudo apt-get install libboost-all-dev
 sudo apt install liblapack-dev
 sudo apt install libopenblas-dev
+sudo apt-get install libjpeg-turbo8-dev
+sudo apt-get install libpng-dev
 ```
-
-We found the previous libraries necessary for installing nlmixr2.  
+>**Warning**  
+> Apparently, Ubuntu server 22 on AWS does not come with many libraries. We found that the libraries written above are needed for `tidyverse` and `nlmixr2` installation. 
 
 Now, let's install `tidyverse`. You can do it both by opening R through SSH or RStudio server.
 ```
@@ -156,7 +160,9 @@ install.packages("nlmixr2", dependencies=T)
 ```
 If you have installed R versions prior to 4.2, please refer to [this page](https://github.com/nlmixr2/nlmixr2/) for nlmixr2 installation. 
 
-Now you should have RStudio running on AWS with both `tidyverse` and `nlmixr2` installed, try this out with the examples at [this page](https://github.com/nlmixr2/nlmixr2/).
+Now you should have RStudio running on AWS with both `tidyverse` and `nlmixr2` installed, try this out with the examples at [this page](https://github.com/nlmixr2/nlmixr2/).  
+
+Enjoy!
 
 
 
