@@ -116,7 +116,7 @@ As it is possible to see, the RStudio requires an username and password. By defa
 If you want to setup a new user, you can run the following command through SSH.
 
 ```
-sudo useradd new_username
+sudo adduser new_username
 ```
 
 ## Install tidyverse and nlmixr2
@@ -124,30 +124,30 @@ sudo useradd new_username
 Before installing tidyverse and nlmixr2 we need to install a few libraries.
 Let's access the instance through SSH and run the following code.
 
+First of all, let's install cmake.
+```
+sudo apt install make
+sudo snap install cmake --classic
+```
+Then, let's install the following libraries.
+```
 sudo apt-get install libcurl4-openssl-dev
 sudo apt-get install libxml2-dev
-
-We found the previous libraries necessary for the installation of tidyverse.
-Now, run the following code as well.
-
 sudo apt-get install libmpfr-dev
 sudo apt-get install libgmp-dev
 sudo apt-get install libboost-all-dev
-
-Now, let's install make and cmake.
-sudo apt install make
-sudo snap install cmake --classic
+```
 
 We found the previous libraries necessary for installing nlmixr2.
-Now, let's install both tidyverse and nlmixr2! You can do it by running R through SSH or by accessing RStudio.
-
-> install.packages("tidyverse", dependencies=T)
+Now, let's install `tidyverse` and `nlmixr2`! You can do it by running R through SSH or by accessing RStudio.
+```
+> install.packages("tidyverse")
 > install.packages("rxode2", dependencies=T)
 > install.packages("nlmixr2", dependencies=T)
+```
+If you have installed R versions prior to 4.2, please refer to [this page](https://github.com/nlmixr2/nlmixr2/) for nlmixr2 installation. 
 
-If you have installed R versions prior to 4.2, please refer to this page for nlmixr2 installation. https://github.com/nlmixr2/nlmixr2/
-
-Now you should have RStudio running on AWS with both tidyverse and nlmixr2 installed, try this out with the examples at page https://github.com/nlmixr2/nlmixr2/.
+Now you should have RStudio running on AWS with both `tidyverse` and `nlmixr2` installed, try this out with the examples at [this page](https://github.com/nlmixr2/nlmixr2/).
 
 
 
