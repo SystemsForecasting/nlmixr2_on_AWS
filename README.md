@@ -51,7 +51,7 @@ sudo apt-get install build-essential
 
 ### Install R 
 
-First, to install the latest version of R on Ubuntu server we shall first update the repositories (otherwise an outdated R version will be installed).
+To install the latest version of R on Ubuntu server we shall first update the repositories (otherwise an outdated R version will be installed).
 
 ```
 # install two helper packages we need
