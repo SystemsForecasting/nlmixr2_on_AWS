@@ -114,7 +114,7 @@ sudo rstudio-server restart
 ```
 Now, RStudio can be accessed from port `80`.
 
-As it is possible to see, the RStudio requires a username and a password. By default, all the Ubuntu's user are allowed to access the RStudio server.
+Once we access the RStudio server, we can see that it requires a username and a password. By default, all the Ubuntu's user are allowed to access the RStudio server.
 If you want to setup a new user, you can run the following command through SSH.
 
 ```
