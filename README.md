@@ -123,7 +123,7 @@ sudo adduser new_username
 
 ## Install tidyverse and nlmixr2
 
-Before installing tidyverse and nlmixr2 we need to install a few libraries.
+Before installing `tidyverse` and `nlmixr2` we need to install a few libraries.
 Let's access the instance through SSH.
 
 First of all, let's install `make` and `cmake`.
